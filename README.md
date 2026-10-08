@@ -10,6 +10,10 @@
 </p>
 
 <p align="center">
+  <a href="https://rhubix.netlify.app/"><strong>Live site → rhubix.netlify.app</strong></a>
+</p>
+
+<p align="center">
   <a href="#pages">Pages</a> ·
   <a href="#getting-started">Getting started</a> ·
   <a href="#deployment-on-netlify">Deployment</a> ·
