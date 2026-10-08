@@ -1,0 +1,122 @@
+/*
+  Button — the one button on the site, shared by the navbar and the hero.
+  Renders a <Link> when given `to`, an <a> when given `href`, a <button>
+  otherwise; the wording is just the children.
+
+  Base geometry traced from the reference's generated CSS:
+    .framer-cJw8v.framer-dexj38   padding 15/25, radius 10, bg #5800b0
+    .framer-cJw8v .framer-1256cc9 preset DFVgnr1CG — 16px/500/1.4em/-0.02em
+
+  The glow is ours, not the reference's: a 50px dot at blur 10 that blooms on
+  hover behind a layered blue shadow. The reference's is a 1px dot at blur 40.
+*/
+
+.button {
+  position: relative;
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  padding: 15px 25px;
+  border-radius: 10px;
+  background-color: var(--color-accent);
+  box-shadow: inset 0 1px 20px 0 var(--color-sheen);
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.button:hover {
+  /* Layered outer bloom (from shadow__btn) stacked on the inset sheen. */
+  box-shadow:
+    inset 0 1px 20px 0 var(--color-accent),
+    0 0 5px rgb(49 77 180 / 50%),
+    0 0 25px rgb(49 77 180 / 50%),
+    0 0 50px rgb(49 77 180 / 50%),
+    0 0 8px 4px rgb(49 77 180 / 50%);
+  animation: zap-kick 0.35s ease;
+}
+
+/* Secondary variant: the reference's #1f1f1f, no inset sheen. */
+.secondary {
+  background-color: var(--color-secondary);
+  box-shadow: none;
+}
+
+.secondary:hover {
+  box-shadow:
+    0 0 5px rgb(49 77 180 / 50%),
+    0 0 25px rgb(49 77 180 / 50%),
+    0 0 50px rgb(49 77 180 / 50%),
+    0 0 8px 4px rgb(49 77 180 / 50%);
+}
+
+/* Rests as a dot dead centre, blooms to fill the button on hover. */
+.glow {
+  position: absolute;
+  top: calc(50% - 25px);
+  left: calc(50% - 25px);
+  z-index: 0;
+  width: 50px;
+  height: 50px;
+  background-color: #fff;
+  filter: blur(10px);
+  -webkit-filter: blur(10px);
+  opacity: 0;
+  transition: opacity var(--dur-base) var(--ease);
+}
+
+.button:hover .glow {
+  top: 0;
+  right: 30px;
+  bottom: 0;
+  left: 30px;
+  width: auto;
+  height: auto;
+  opacity: 0.1;
+  animation: zap-spread 0.5s ease-out;
+}
+
+.label {
+  position: relative;
+  z-index: 1;
+  /* Without this the width:fit-content button collapses to the longest word
+     and the label wraps. */
+  white-space: pre;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.4em;
+  letter-spacing: -0.02em;
+  color: var(--color-text-primary);
+}
+
+@keyframes zap-kick {
+  0% {
+    transform: scale(1);
+  }
+
+  30% {
+    transform: scale(1.04);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes zap-spread {
+  0% {
+    opacity: 0;
+    transform: scale(0.2);
+  }
+
+  70% {
+    opacity: 0.15;
+  }
+
+  100% {
+    opacity: 0.1;
+    transform: scale(1);
+  }
+}

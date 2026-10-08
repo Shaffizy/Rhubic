@@ -1,0 +1,248 @@
+/* FeatureBento — traced from the reference "Benefits" section (framer-iretjr):
+   desktop:  pad 150/30, container gap 100 (max 1200), title block 60% wide,
+             tiles row gap 30; each tile flex:1, pad 40, radius 20, surface
+             fill, 1px border, inset sheen; wide tile row gap 100.
+   tablet:   container gap 75 (max 850), title 70%, tiles stack and each tile
+             turns row (texts left, widget right), wide tile column gap 50
+             with the tickers ABOVE the texts (order flip).
+   phone:    pad 100/20, container gap 50 (max 600), title 100%, tiles stack
+             column full-width; wide tile keeps the tickers-above order flip.
+   Breakpoints follow the site ladder: tablet 810-1199.98, phone <=809.98. */
+
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 50px;
+  width: 100%;
+  padding: 150px 30px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 100px;
+  width: 100%;
+  max-width: var(--container);
+  overflow: hidden;
+}
+
+.titleBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 60%;
+}
+
+.heading {
+  width: 100%;
+  font-size: var(--fs-h2);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.04em;
+  color: var(--color-text-primary);
+  text-align: center;
+  text-wrap: balance;
+  /* Same foot-fade the hero headline carries. */
+  mask: linear-gradient(#000 0%, rgb(0 0 0 / 50%) 100%);
+  -webkit-mask: linear-gradient(#000 0%, rgb(0 0 0 / 50%) 100%);
+}
+
+.lead {
+  width: 100%;
+  font-size: var(--fs-lead);
+  line-height: 1.7;
+  color: var(--color-text-muted);
+  text-align: center;
+  text-wrap: balance;
+}
+
+.tiles {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  width: 100%;
+}
+
+.row {
+  display: flex;
+  gap: 30px;
+  width: 100%;
+}
+
+.tile {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
+  min-width: 0;
+  padding: 40px;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: 20px;
+  background-color: var(--color-surface);
+  box-shadow: inset 0 1px 20px 0 var(--color-sheen);
+}
+
+.tileTexts {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+.tileTitle {
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: -0.02em;
+  color: var(--color-text-primary);
+}
+
+.tileBody {
+  font-size: 16px;
+  line-height: 1.8;
+  color: var(--color-text-muted);
+}
+
+/* Widget wrappers — the reference pins each mockup to a fixed desktop width
+   (280 for the graph, 270 for the cards) and lets them fill on smaller steps. */
+.widgetBar,
+.widgetNotifications,
+.widgetChat {
+  flex: none;
+  width: 280px;
+}
+
+.widgetNotifications,
+.widgetChat {
+  width: 270px;
+}
+
+.widgetTools {
+  flex: 1;
+  width: 45%;
+}
+
+.tileWide {
+  flex-direction: row;
+  /* gap: 100px; */
+}
+
+.tileWide .tileTexts {
+  /* flex: 1;
+  min-width: 0; */
+}
+
+@media (min-width: 810px) and (max-width: 1199.98px) {
+  .container {
+    gap: 75px;
+    max-width: 850px;
+  }
+
+  .titleBlock {
+    width: 70%;
+  }
+
+  .row {
+    flex-direction: column;
+  }
+
+  .tile {
+    flex: none;
+    flex-direction: row;
+    width: 100%;
+  }
+
+  .tileTexts {
+    flex: 1;
+    width: auto;
+    min-width: 0;
+  }
+
+  .widgetBar,
+  .widgetNotifications,
+  .widgetChat {
+    flex: 1;
+    width: auto;
+    min-width: 0;
+  }
+
+  .tileWide {
+    flex-direction: column;
+    gap: 50px;
+  }
+
+  .tileWide .widgetTools {
+    flex: none;
+    order: 0;
+  }
+
+  .tileWide .tileTexts {
+    flex: none;
+    order: 1;
+    width: 100%;
+  }
+}
+
+@media (max-width: 809.98px) {
+  .section {
+    padding: 100px 20px;
+  }
+
+  .container {
+    gap: 50px;
+    max-width: 600px;
+  }
+
+  .titleBlock {
+    width: 100%;
+  }
+
+  .row {
+    flex-direction: column;
+  }
+
+  .tile {
+    flex: none;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .tileTexts {
+    width: 100%;
+  }
+
+  .widgetBar,
+  .widgetNotifications,
+  .widgetChat,
+  .widgetTools {
+    width: 100%;
+  }
+
+  .tileWide {
+    flex-direction: column;
+    gap: 50px;
+  }
+
+  .tileWide .widgetTools {
+    flex: none;
+    order: 0;
+  }
+
+  .tileWide .tileTexts {
+    flex: none;
+    order: 1;
+  }
+}
+
+
+@media (max-width: 1100px) {
+  .widgetTools {
+    width: 100%;
+  }
+}

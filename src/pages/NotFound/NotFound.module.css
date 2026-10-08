@@ -1,0 +1,109 @@
+/* NotFound — measured from the reference 404 route (framer-YZN5X):
+   hero (framer-pq4l1): column centred, gap 40, min-height 800, pad
+             200/30/125 (tablet 250/30/100, phone 175/20/150); full-bleed
+             ghost backdrop (the Bifbb image mounts with inline 100%x100%
+             and sizes=100vw — NOT the class rule's 1200x588); container
+             max 1200 (850 / 600) z2; title block flex 1 capped 600, gap 20
+             centred; h1 preset n7dvse = 66/46/36px 400 -0.05em 1.15 (the
+             --fs-h1 ladder); lead preset 1qiv7jj = 19px/1.7 muted; then
+             the shared secondary Button (resolved token c6178bb3 = #1f1f1f
+             = --color-secondary). */
+
+.page {
+  background-color: var(--color-bg);
+}
+
+.hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  width: 100%;
+  min-height: 800px;
+  padding: 200px 30px 125px;
+  overflow: hidden;
+}
+
+.heroBackdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.heroImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  /* Ghost wash: 10% at centre, gone by the edges (reference inline mask). */
+  mask: radial-gradient(50% 50%, rgb(0 0 0 / 10%) 0%, transparent 100%);
+  -webkit-mask: radial-gradient(50% 50%, rgb(0 0 0 / 10%) 0%, transparent 100%);
+}
+
+.heroContainer {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  width: 100%;
+  max-width: var(--container);
+}
+
+.titleBlock {
+  display: flex;
+  flex: 1 0 0;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  max-width: 600px;
+  text-align: center;
+}
+
+.h1 {
+  width: 100%;
+  font-size: var(--fs-h1);
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: -0.05em;
+  color: var(--color-text-primary);
+}
+
+.lead {
+  width: 100%;
+  margin: 0;
+  font-size: var(--fs-lead);
+  line-height: 1.7;
+  color: var(--color-text-muted);
+  text-wrap: balance;
+}
+
+/* --- tablet (810–1199.98) --- */
+
+@media (min-width: 810px) and (max-width: 1199.98px) {
+  .hero {
+    padding: 250px 30px 100px;
+  }
+
+  .heroContainer {
+    max-width: 850px;
+  }
+}
+
+/* --- phone (≤809.98) --- */
+
+@media (max-width: 809.98px) {
+  .hero {
+    padding: 175px 20px 150px;
+  }
+
+  .heroContainer {
+    max-width: 600px;
+  }
+
+  .h1 {
+    line-height: 1.25;
+  }
+}

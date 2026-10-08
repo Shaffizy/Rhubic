@@ -1,0 +1,27 @@
+/* GooeyReveal — sits between the dim base grid (z 0) and the glow (z 2), same
+   slot HeroRipple used to occupy. The bright grid layer only becomes visible
+   where the SVG mask's blobs have passed over it. */
+
+.host {
+  position: absolute;
+  inset: 0;
+  z-index: 10; /* ABOVE .container's z-index: 2 — must see everything to blend against it */
+  overflow: hidden;
+  pointer-events: none;
+  mix-blend-mode: difference;
+}
+
+.brightGrid {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: #fff; /* white, required for difference blending to invert correctly */
+}
+
+.svg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+

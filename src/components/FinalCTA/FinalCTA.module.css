@@ -1,0 +1,192 @@
+/* FinalCTA — traced from the reference (section#call-to-action →
+   framer-Pua3l.framer-63qmcx):
+   desktop:  section pad 0/30/150, container gap 50 (max 1200); card 1140
+             wide, pad 100, radius 20, #0f0f0f, 7% border, inset sheen,
+             overflow hidden; backdrop absolute inset 0 0 -300px at opacity
+             .8 (perspective grid + round blur, same components as Hero,
+             grid sized 1200px auto); texts column gap 20, width 80%.
+   tablet:   card 740 wide, pad 50; container max 850.
+   phone:    section pad 25/20/100, card 390 wide pad 30; container max 600.
+   Heading keeps the hero's foot-fade mask; pill mirrors the hero pill. */
+
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 50px;
+  width: 100%;
+  padding: 0 30px 150px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 50px;
+  width: 100%;
+  max-width: var(--container);
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 1140px;
+  max-width: 100%;
+  padding: 100px;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: 20px;
+  background-color: var(--color-surface);
+  box-shadow: inset 0 1px 20px 0 var(--color-sheen);
+}
+
+/* Backdrop bleeds 300px past the card's bottom edge; clipped by .card. */
+.backdrop {
+  position: absolute;
+  inset: 0 0 -300px;
+  z-index: 0;
+  opacity: 0.8;
+}
+
+.stage {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.grid {
+  position: relative;
+  z-index: 0;
+  flex: none;
+  width: 89%;
+  height: 100%;
+  transform: perspective(1200px) rotateX(70deg);
+  mask: radial-gradient(50% 50% at 50% 50%, #000 79.1631%, transparent 100%);
+  -webkit-mask: radial-gradient(50% 50% at 50% 50%, #000 79.1631%, transparent 100%);
+  background-image: url('@/assets/images/hero-grid.png');
+  background-repeat: repeat;
+  background-position: center top;
+  background-size: 1200px auto;
+}
+
+.glow {
+  position: absolute;
+  bottom: 38px;
+  left: calc(50% - 328px);
+  z-index: 2;
+  flex: none;
+  width: 656px;
+  height: 612px;
+  border-radius: 999px;
+  background-color: #fff;
+  filter: blur(100px);
+  -webkit-filter: blur(100px);
+  mask: radial-gradient(50% 50% at 50% 50%, rgb(0 0 0 / 10%) 0%, transparent 100%);
+  -webkit-mask: radial-gradient(50% 50% at 50% 50%, rgb(0 0 0 / 10%) 0%, transparent 100%);
+}
+
+.texts {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 80%;
+}
+
+.pill {
+  display: flex;
+  flex: none;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: min-content;
+  padding: 5px 20px;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  background-color: var(--color-surface);
+  box-shadow: inset 0 1px 20px 0 var(--color-sheen);
+  overflow: hidden;
+}
+
+.pillDot {
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 8px;
+  background-color: var(--color-green);
+}
+
+.pillText {
+  flex: none;
+  white-space: pre;
+  font-size: 16px;
+  line-height: 1.8em;
+  letter-spacing: 0;
+  color: var(--color-text-muted);
+}
+
+.heading {
+  width: 100%;
+  font-size: var(--fs-h2);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.04em;
+  color: var(--color-text-primary);
+  text-align: center;
+  text-wrap: balance;
+  /* Same foot-fade the hero headline carries. */
+  mask: linear-gradient(0deg, rgb(0 0 0 / 50%) 0%, #000 100%);
+  -webkit-mask: linear-gradient(0deg, rgb(0 0 0 / 50%) 0%, #000 100%);
+}
+
+.lead {
+  width: 100%;
+  font-size: var(--fs-lead);
+  line-height: 1.7;
+  color: var(--color-text-muted);
+  text-align: center;
+  text-wrap: balance;
+}
+
+/* 1px element that opens up the gap above the button (hero pattern). */
+.spacer {
+  flex: none;
+  width: 100%;
+  height: 1px;
+}
+
+@media (min-width: 810px) and (max-width: 1199.98px) {
+  .container {
+    max-width: 850px;
+  }
+
+  .card {
+    width: 740px;
+    padding: 50px;
+  }
+}
+
+@media (max-width: 809.98px) {
+  .section {
+    padding: 25px 20px 100px;
+  }
+
+  .container {
+    max-width: 600px;
+  }
+
+  .card {
+    /* width: 390px; */
+    padding: 30px;
+  }
+}

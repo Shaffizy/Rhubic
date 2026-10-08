@@ -1,0 +1,5 @@
+/* Home — the page wrapper only. Sections bring their own padding. */
+
+.page {
+  background-color: var(--color-bg);
+}

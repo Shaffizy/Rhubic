@@ -1,0 +1,540 @@
+/* About — measured from the reference /about-us page (framer-xRx4S):
+   hero (framer-r3coma): pad 250/30/150 (phone 175/20/100), gap 50, centred;
+             backdrop absolute inset 0 holds the full-bleed photo radially
+             masked to a 10% ghost (same treatment as Services);
+             container max 1200, title block 70% (100% phone) gap 20 centred;
+             h1 preset 4xbdk9 = 100px/400/-0.05em/1.15 (80 tablet / 50 phone);
+             lead preset 1qiv7jj = 19px/1.7 muted (17 tablet+phone).
+   mission (framer-ue4p43): pad 0/30/150 (phone 0/20/100, team 25/20/100),
+             container gap 75 max 1200 (unconstrained tablet, 600 phone);
+             split row gap 100 (50 tablet, stacked 50 phone), photo flex 1
+             height 500 (400 tablet/phone) radius 20; texts flex 1 gap 20,
+             h2 preset 3pg9x0 = --fs-h2 (56/40/34).
+   stats (framer-uvsdac): row gap 50 (stacked phone); each stat = 100px
+             badge (radius 80, pad 25, #111→#000 gradient, border + inset
+             sheen, muted icon; 80/20 on phone) + texts gap 5; value preset
+             dfwzla 36/30/26px 500 -0.03em, label 16/1.8 muted.
+   tour (framer-ehoyq1): container gap 100 (75 tablet / 50 phone); title
+             block 70% centred; banner 70% x 500 (100% ≤1199), radius 20,
+             black 60% overlay, play icon 120 (150 on hover).
+   team (framer-1vy5955): header row gap 100 align-end — h2 left, lead
+             right (stacked gap 20 on phone); grid 3 cols gap 40 (2 tablet,
+             1 phone), member card pad 50 gap 30 radius 20 #111, avatar 180
+             round, name 22/500/-0.02em, role 16/1.8 muted, socials gap 20
+             with 20px icons.
+   Containers use the reference's literal 8500px tablet max (= unconstrained)
+   so tablet widths match rather than snapping to the site's 850px. */
+
+.page {
+  background-color: var(--color-bg);
+}
+
+/* --- hero --- */
+
+.hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 50px;
+  width: 100%;
+  padding: 250px 30px 150px;
+  overflow: hidden;
+}
+
+.heroBackdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.heroImageBox {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.heroImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  /* Ghost wash: 10% at centre, gone by the edges (reference inline mask). */
+  mask: radial-gradient(50% 50%, rgb(0 0 0 / 10%) 0%, transparent 100%);
+  -webkit-mask: radial-gradient(50% 50%, rgb(0 0 0 / 10%) 0%, transparent 100%);
+}
+
+.heroContainer {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 50px;
+  width: 100%;
+  max-width: var(--container);
+}
+
+/* Shared centred title block (hero + tour). */
+.titleBlock,
+.tourTitleBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 70%;
+  text-align: center;
+}
+
+.h1 {
+  width: 100%;
+  font-size: 100px;
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: -0.05em;
+  color: var(--color-text-primary);
+}
+
+.h2 {
+  width: 100%;
+  font-size: var(--fs-h2);
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--color-text-primary);
+}
+
+.lead {
+  width: 100%;
+  margin: 0;
+  font-size: var(--fs-lead);
+  line-height: 1.7;
+  color: var(--color-text-muted);
+  text-wrap: balance;
+}
+
+/* --- shared section frame --- */
+
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 50px;
+  width: 100%;
+  padding: 0 30px 150px;
+  scroll-margin-top: 50px;
+}
+
+/* --- mission --- */
+
+.missionContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 75px;
+  width: 100%;
+  max-width: var(--container);
+}
+
+.missionContent {
+  display: flex;
+  align-items: center;
+  gap: 100px;
+  width: 100%;
+}
+
+.missionImageBox {
+  flex: 1 0 0;
+  min-width: 0;
+  height: 500px;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.missionImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.missionTexts {
+  display: flex;
+  flex: 1 0 0;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  min-width: 0;
+}
+
+/* --- stats --- */
+
+.stats {
+  display: flex;
+  align-items: center;
+  gap: 50px;
+  width: 100%;
+}
+
+.stat {
+  display: flex;
+  flex: 1 0 0;
+  align-items: center;
+  gap: 30px;
+  min-width: 0;
+}
+
+.statBadge {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 100px;
+  padding: 25px;
+  border: 1px solid var(--color-border);
+  border-radius: 80px;
+  background: linear-gradient(180deg, var(--color-surface) 0%, var(--color-bg) 100%);
+  box-shadow: inset 0 1px 20px 0 var(--color-sheen);
+  overflow: hidden;
+}
+
+.statIcon {
+  width: 100%;
+  height: 100%;
+  color: var(--color-text-muted);
+}
+
+.statTexts {
+  display: flex;
+  flex: 1 0 0;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+  min-width: 0;
+}
+
+.statValue {
+  width: 100%;
+  font-size: 36px;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+  color: var(--color-text-primary);
+}
+
+.statLabel {
+  width: 100%;
+  font-size: 16px;
+  line-height: 1.8;
+  color: var(--color-text-muted);
+}
+
+/* --- virtual tour --- */
+
+.tourContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 100px;
+  width: 100%;
+  max-width: var(--container);
+}
+
+.tour {
+  position: relative;
+  width: 70%;
+  height: 500px;
+  border-radius: 20px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.tourImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.tourOverlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(0 0 0 / 60%);
+}
+
+.playIcon {
+  width: 120px;
+  height: 120px;
+  color: var(--color-text-primary);
+  transition:
+    width 0.3s ease,
+    height 0.3s ease;
+}
+
+.tour:hover .playIcon {
+  width: 150px;
+  height: 150px;
+}
+
+/* --- team --- */
+
+.teamContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 100px;
+  width: 100%;
+  max-width: var(--container);
+}
+
+.teamHeader {
+  display: flex;
+  align-items: flex-end;
+  gap: 100px;
+  width: 100%;
+}
+
+.teamHeader .h2 {
+  flex: 1 0 0;
+  width: auto;
+}
+
+.teamLead {
+  flex: 1 0 0;
+  width: auto;
+  text-align: right;
+}
+
+.teamGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(50px, 1fr));
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  gap: 40px;
+  width: 100%;
+  justify-content: center;
+}
+
+.member {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  width: 100%;
+  padding: 50px;
+  border: 1px solid var(--color-border);
+  border-radius: 20px;
+  background-color: var(--color-surface);
+  box-shadow: inset 0 1px 20px 0 var(--color-sheen);
+}
+
+.memberPhoto {
+  flex: none;
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 50%;
+}
+
+.memberNameJob {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.memberName {
+  width: 100%;
+  margin: 0;
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: -0.02em;
+  text-align: center;
+  color: var(--color-text-primary);
+}
+
+.memberRole {
+  width: 100%;
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.8;
+  text-align: center;
+  color: var(--color-text-muted);
+}
+
+.socials {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.socials a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-primary);
+  transition: opacity 0.2s ease;
+}
+
+.socials a:hover {
+  opacity: 0.6;
+}
+
+.socialIcon {
+  width: 20px;
+  height: 20px;
+}
+
+/* --- tablet (reference: 810–1199.98, containers max out at 8500px) --- */
+
+@media (min-width: 810px) and (max-width: 1199.98px) {
+  .heroContainer,
+  .missionContainer,
+  .tourContainer,
+  .teamContainer {
+    max-width: 8500px;
+  }
+
+  .h1 {
+    font-size: 80px;
+  }
+
+  .missionContent {
+    gap: 50px;
+  }
+
+  .missionImageBox {
+    height: 400px;
+  }
+
+  .statValue {
+    font-size: 30px;
+  }
+
+  .tourContainer,
+  .teamContainer {
+    gap: 75px;
+  }
+
+  .tour {
+    width: 100%;
+  }
+
+  .teamGrid {
+    grid-template-columns: repeat(2, minmax(50px, 1fr));
+  }
+}
+
+/* --- phone (≤809.98) --- */
+
+@media (max-width: 809.98px) {
+  .hero {
+    padding: 175px 20px 100px;
+  }
+
+  .heroContainer,
+  .missionContainer,
+  .tourContainer,
+  .teamContainer {
+    max-width: 600px;
+  }
+
+  .titleBlock,
+  .tourTitleBlock {
+    width: 100%;
+  }
+
+  .h1 {
+    font-size: 50px;
+  }
+
+  .h2 {
+    line-height: 1.3;
+  }
+
+  .section {
+    padding: 0 20px 100px;
+  }
+
+  /* The team section sits 25px lower than its siblings on phone. */
+  .teamSection {
+    padding-top: 25px;
+  }
+
+  .missionContent {
+    flex-direction: column;
+    gap: 50px;
+  }
+
+  .missionImageBox {
+    flex: none;
+    width: 100%;
+    height: 400px;
+  }
+
+  .missionTexts {
+    flex: none;
+    width: 100%;
+  }
+
+  .stats {
+    flex-direction: column;
+  }
+
+  .stat {
+    flex: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    width: 250px;
+  }
+
+  .statBadge {
+    width: 80px;
+    height: 80px;
+    padding: 20px;
+  }
+
+  .statTexts {
+    flex: none;
+    width: 100%;
+  }
+
+  .statValue {
+    font-size: 26px;
+  }
+
+  .tourContainer,
+  .teamContainer {
+    gap: 50px;
+  }
+
+  .tour {
+    width: 100%;
+  }
+
+  .teamHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .teamHeader .h2,
+  .teamLead {
+    flex: none;
+    width: 100%;
+  }
+
+  .teamGrid {
+    grid-template-columns: repeat(1, minmax(50px, 1fr));
+    grid-template-rows: none;
+  }
+}

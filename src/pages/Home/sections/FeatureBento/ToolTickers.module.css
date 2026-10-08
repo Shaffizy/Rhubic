@@ -1,0 +1,95 @@
+/* ToolTickers — traced from the reference (framer-PcAu1): column gap 50,
+   25px block padding; row 1 is 70% wide, row 2 full width; each viewport 100px
+   of content + 10px padding with the same 12.5%/87.5% edge mask as the hero
+   strip. Tiles are 100x100 black squares (50x50 on phone), gap 10, glyph 50.
+   Loop seam: one trailing gap of padding-inline-end so -50% lands exactly. */
+
+.tools {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0px;
+  width: 100%;
+  padding: 25px 0;
+}
+
+.viewport {
+  overflow: hidden;
+  height: 120px;
+  padding: 10px;
+  mask-image: linear-gradient(to right, transparent 0%, #000 12.5%, #000 87.5%, transparent 100%);
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    #000 12.5%,
+    #000 87.5%,
+    transparent 100%
+  );
+}
+
+.rowNarrow {
+  width: 70%;
+}
+
+.rowWide {
+  width: 100%;
+}
+
+.track {
+  display: flex;
+  gap: 10px;
+  width: max-content;
+  height: 100%;
+  padding-inline-end: 10px;
+  animation: tick linear infinite;
+  will-change: transform;
+}
+
+.tile {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 100px;
+  padding: 25px;
+  overflow: hidden;
+  border-radius: 10px;
+  background-color: #000;
+}
+
+.glyph {
+  width: 100%;
+  height: 100%;
+  color: var(--color-text-primary);
+}
+
+@keyframes tick {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 809.98px) {
+  .tools {
+    padding: 0;
+  }
+
+  .tile {
+    width: 50px;
+    height: 50px;
+    padding: 10px;
+  }
+
+  .viewport {
+    height: 70px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .track {
+    animation: none;
+  }
+}

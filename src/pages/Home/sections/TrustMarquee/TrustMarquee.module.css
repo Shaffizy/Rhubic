@@ -1,0 +1,81 @@
+/* TrustMarquee — traced from the reference Gallery (framer-4JeKH):
+   section 1200 wide centred, viewport 400px tall (300 on phone) with 10px
+   padding and a 12.5%/87.5% edge mask, cards 375px wide, gap 30, radius 10,
+   images object-fit cover, centre top.
+   Loop seam: the track ends with one gap of padding-inline-end so
+   translateX(-50%) lands exactly one cycle over — a flex gap alone would
+   overshoot by half a gap. */
+
+.section {
+  width: 100%;
+  /* max-width: var(--container); */
+  margin-inline: auto;
+}
+
+.viewport {
+  position: relative;
+  height: 400px;
+  overflow: hidden;
+  padding: 5px;
+  mask-image: linear-gradient(to right, transparent 0%, #000 12.5%, #000 87.5%, transparent 100%);
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    #000 12.5%,
+    #000 87.5%,
+    transparent 100%
+  );
+}
+
+.track {
+  display: flex;
+  gap: 30px;
+  width: max-content;
+  height: 100%;
+  /* One gap of trailing space, so -50% is exactly one cycle. */
+  padding-inline-end: 30px;
+  animation: scroll 40s linear infinite;
+  will-change: transform;
+}
+
+/* .viewport:hover .track {
+  animation-play-state: paused;
+} */
+
+.item {
+  flex: none;
+  width: 375px;
+  height: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+
+@keyframes scroll {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 809.98px) {
+  .viewport {
+    height: 300px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .track {
+    animation: none;
+  }
+
+  .viewport {
+    mask-image: none;
+    -webkit-mask-image: none;
+  }
+}

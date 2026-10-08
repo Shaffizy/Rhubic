@@ -1,0 +1,283 @@
+/* ServicesShowcase — traced from the reference (framer-16wk279):
+   desktop:  pad 0/30/150, container gap 100 (max 1200), content gap 50,
+             ticker 1140 wide / 90 tall with 12.5%/87.5% mask and gap 20,
+             pills pad 20/30 radius 15 (25px glyph + 19px label), photo
+             100%x600 radius 20, stats row gap 50 with equal cells.
+   tablet:   container gap 75 (max 850), title 70%, photo 450 tall.
+   phone:    pad 25/20/100, container gap 50 (max 600), title 100%,
+             photo 450, stats stack column (250-wide cards).
+   Badges reuse the WhyChooseUs pill: 100x100, radius 80, gradient,
+   7% border, inset sheen, 50px muted glyph. */
+
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 50px;
+  width: 100%;
+  padding: 0 30px 150px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 100px;
+  width: 100%;
+  max-width: var(--container);
+  overflow: hidden;
+}
+
+.titleBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 60%;
+}
+
+.heading {
+  width: 100%;
+  font-size: var(--fs-h2);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.04em;
+  color: var(--color-text-primary);
+  text-align: center;
+  text-wrap: balance;
+  mask: linear-gradient(#000 0%, rgb(0 0 0 / 50%) 100%);
+  -webkit-mask: linear-gradient(#000 0%, rgb(0 0 0 / 50%) 100%);
+}
+
+.lead {
+  width: 100%;
+  font-size: var(--fs-lead);
+  line-height: 1.7;
+  color: var(--color-text-muted);
+  text-align: center;
+  text-wrap: balance;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 50px;
+  width: 100%;
+}
+
+/* --- service pill ticker --- */
+
+.tickerViewport {
+  width: 100%;
+  max-width: 1140px;
+  height: 90px;
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent 0%, #000 12.5%, #000 87.5%, transparent 100%);
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    #000 12.5%,
+    #000 87.5%,
+    transparent 100%
+  );
+}
+
+.tickerTrack {
+  display: flex;
+  gap: 20px;
+  width: max-content;
+  height: 100%;
+  align-items: center;
+  padding-inline-end: 20px;
+  animation: scroll 30s linear infinite;
+  will-change: transform;
+}
+
+.pill {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 15px;
+  padding: 20px 30px;
+  border: 1px solid var(--color-border);
+  border-radius: 15px;
+  background-color: var(--color-surface);
+  box-shadow: inset 0 1px 20px 0 var(--color-sheen);
+  white-space: pre;
+}
+
+.pillIconWrap {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 25px;
+  height: 25px;
+}
+
+.pillIcon {
+  width: 100%;
+  height: 100%;
+  color: var(--color-text-primary);
+}
+
+.pillTitle {
+  flex: none;
+  font-size: 19px;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: -0.02em;
+  color: var(--color-text-primary);
+}
+
+@keyframes scroll {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* --- showcase photo --- */
+
+.photo {
+  width: 100%;
+  height: 600px;
+  overflow: hidden;
+  border-radius: 20px;
+}
+
+.photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* --- stats row --- */
+
+.stats {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 150px;
+  width: 100%;
+}
+
+.statCard {
+  display: flex;
+  flex: 1 0 0;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  min-width: 0;
+  /* max-width: 330px; */
+  max-width: fit-content;
+}
+
+.statBadge {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 100px;
+  padding: 25px;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: 80px;
+  background: linear-gradient(180deg, var(--color-surface) 0%, #000 100%);
+  box-shadow: inset 0 1px 20px 0 var(--color-sheen);
+}
+
+.statGlyph {
+  width: 100%;
+  height: 100%;
+  color: var(--color-text-muted);
+}
+
+.statTexts {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+  min-width: 0;
+}
+
+.statFigure {
+  font-size: 30px;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+  color: var(--color-text-primary);
+}
+
+.statLabel {
+  font-size: 16px;
+  line-height: 1.8;
+  color: var(--color-text-muted);
+}
+
+@media (min-width: 810px) and (max-width: 1199.98px) {
+  .container {
+    gap: 75px;
+    max-width: 850px;
+  }
+
+  .titleBlock {
+    width: 70%;
+  }
+
+  .photo {
+    height: 450px;
+  }
+}
+
+@media (max-width: 809.98px) {
+  .section {
+    padding: 25px 20px 100px;
+  }
+
+  .container {
+    gap: 50px;
+    max-width: 600px;
+  }
+
+  .titleBlock {
+    width: 100%;
+  }
+
+  .photo {
+    height: 450px;
+  }
+
+  .stats {
+    flex-direction: column;
+    gap: 50px;
+  }
+
+  .statCard {
+    flex: none;
+    width: 250px;
+    max-width: 100%;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .statTexts {
+    width: 100%;
+    align-items: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tickerTrack {
+    animation: none;
+  }
+}
+
+@media (max-width: 1100px) {
+  .stats {
+    gap: 50px;
+  }
+}

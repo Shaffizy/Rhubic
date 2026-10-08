@@ -1,0 +1,191 @@
+/* FAQAccordion — traced from the reference (framer-1q39ulv):
+   desktop:  section pad 0/30/150 gap 40; container gap 75 (max 1200);
+             title block 60%; questions wrapper gap 20, max 800; cards 550
+             wide, pad 30, radius 15, #0f0f0f, 7% border, inset sheen;
+             question row gap 40, h5 19/500 white, 20px chevron white.
+             Open = chevron down (0deg); closed = rotated -90deg (points
+             right); answer 16px muted beneath the row.
+   tablet:   container max 850, questions max 600.
+   phone:    section pad 25/20/100; container gap 50 (max 600), title 100%;
+             cards fluid (max 550). */
+
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  width: 100%;
+  padding: 0 30px 150px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 75px;
+  width: 100%;
+  max-width: var(--container);
+}
+
+.titleBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 60%;
+}
+
+.heading {
+  width: 100%;
+  font-size: var(--fs-h2);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.04em;
+  color: var(--color-text-primary);
+  text-align: center;
+  text-wrap: balance;
+  mask: linear-gradient(#000 0%, rgb(0 0 0 / 50%) 100%);
+  -webkit-mask: linear-gradient(#000 0%, rgb(0 0 0 / 50%) 100%);
+}
+
+.lead {
+  width: 100%;
+  font-size: var(--fs-lead);
+  line-height: 1.7;
+  color: var(--color-text-muted);
+  text-align: center;
+  text-wrap: balance;
+}
+
+.questions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  max-width: 800px;
+}
+
+.item {
+  width: 100%;
+  max-width: 800px;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: 15px;
+  background-color: var(--color-surface);
+  box-shadow: inset 0 1px 20px 0 var(--color-sheen);
+}
+
+.question {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  width: 100%;
+  padding: 30px;
+  text-align: left;
+}
+
+.questionText {
+  flex: 1;
+  min-width: 0;
+  font-size: 19px;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: -0.02em;
+  color: var(--color-text-primary);
+}
+
+.arrowWrap {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 20px;
+  height: 20px;
+}
+
+.arrow {
+  width: 100%;
+  height: 100%;
+  color: var(--color-text-primary);
+  /* Closed: points right. Open: falls back to the chevron's natural down. */
+  transform: rotate(-90deg);
+  transition: transform var(--dur-base) var(--ease);
+}
+
+.item[data-open] .arrow {
+  transform: rotate(0deg);
+}
+
+/* Height-animated reveal: grid 0fr→1fr keeps the transition smooth and
+   content-agnostic. The answer's top spacing lives inside the clipped
+   inner so a closed card shows no phantom gap. */
+.answerWrap {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--dur-base) var(--ease);
+}
+
+.item[data-open] .answerWrap {
+  grid-template-rows: 1fr;
+}
+
+.answerInner {
+  overflow: hidden;
+  min-height: 0;
+}
+
+.answer {
+  padding: 0 30px 30px;
+  font-size: 16px;
+  line-height: 1.8;
+  color: var(--color-text-muted);
+}
+
+@media (min-width: 810px) and (max-width: 1199.98px) {
+  .container {
+    max-width: 850px;
+  }
+
+  .titleBlock {
+    width: 70%;
+  }
+
+  .questions {
+    max-width: 600px;
+  }
+}
+
+@media (max-width: 809.98px) {
+  .section {
+    padding: 25px 20px 100px;
+  }
+
+  .container {
+    gap: 50px;
+    max-width: 600px;
+  }
+
+  .titleBlock {
+    width: 100%;
+  }
+
+  .questions {
+    max-width: 600px;
+  }
+
+  .question {
+    gap: 20px;
+    padding: 24px;
+  }
+
+  .answer {
+    padding: 0 24px 24px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .answerWrap,
+  .arrow {
+    transition: none;
+  }
+}

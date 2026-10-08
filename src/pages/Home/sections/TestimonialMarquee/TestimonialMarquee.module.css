@@ -1,0 +1,347 @@
+/* TestimonialMarquee — traced from the reference (framer-we7bvh):
+   desktop:  pad 0/30/150, container gap 100 (max 1200), title 60%,
+             content gap 50. Card shell: pad 75/100, radius 20, surface
+             fill, 1px border, inset sheen. Carousel: section pad 0 50,
+             slides 100% wide, gap 10, scroll-snap x mandatory. Quote
+             card: width 778, column gap 40; 60px quotes glyph; quote type
+             36px/500/-.03em/1.2; author row gap 20, 50px avatar.
+             Arrows: 40x40, radius 5, 3% white, pinned over the shell;
+             prev hidden while at the first slide.
+             Logo cloud: 80% wide, opacity .5, viewport 50px pad 10 with
+             the 12.5%/87.5% edge mask, logos 36px tall, gap 75, inverted
+             so dark source art reads white on black.
+   tablet:   container gap 75 (max 850), title 70%, shell pad 50,
+             quote 29px.
+   phone:    pad 0/20/100, container gap 50 (max 600), title 100%,
+             shell pad 30, quote 23px. */
+
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 50px;
+  width: 100%;
+  padding: 0 30px 150px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 100px;
+  width: 100%;
+  max-width: var(--container);
+  overflow: hidden;
+}
+
+.titleBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 60%;
+}
+
+.heading {
+  width: 100%;
+  font-size: var(--fs-h2);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.04em;
+  color: var(--color-text-primary);
+  text-align: center;
+  text-wrap: balance;
+  mask: linear-gradient(#000 0%, rgb(0 0 0 / 50%) 100%);
+  -webkit-mask: linear-gradient(#000 0%, rgb(0 0 0 / 50%) 100%);
+}
+
+.lead {
+  width: 100%;
+  font-size: var(--fs-lead);
+  line-height: 1.7;
+  color: var(--color-text-muted);
+  text-align: center;
+  text-wrap: balance;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 50px;
+  width: 100%;
+}
+
+/* --- carousel shell --- */
+
+.card {
+  position: relative;
+  width: 100%;
+  padding: 75px 100px;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: 20px;
+  background-color: var(--color-surface);
+  box-shadow: inset 0 1px 20px 0 var(--color-sheen);
+}
+
+.carousel {
+  position: relative;
+  width: 100%;
+  /* The reference's inner section padding: the arrows span this padding
+     box (inset 0), the slides live inside it. Per-breakpoint: 75 desktop,
+     50 tablet, bottom-only 75 on phone. */
+  padding: 0 75px;
+}
+
+.track {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding: 0;
+}
+
+.track::-webkit-scrollbar {
+  display: none;
+}
+
+.slide {
+  flex: none;
+  width: 100%;
+  scroll-snap-align: center;
+  scroll-snap-stop: always;
+}
+
+.quoteCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  width: 778px;
+  max-width: 100%;
+  margin-inline: auto;
+}
+
+.quoteIcon {
+  flex: none;
+  width: 60px;
+  height: 60px;
+  color: var(--color-text-primary);
+}
+
+.quoteText {
+  width: 100%;
+  font-size: 36px;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+  color: var(--color-text-primary);
+  text-align: center;
+  text-wrap: balance;
+}
+
+.author {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.avatar {
+  flex: none;
+  width: 50px;
+  height: 50px;
+  overflow: hidden;
+  border-radius: 99px;
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.authorTexts {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.authorName {
+  white-space: pre;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: -0.02em;
+  color: var(--color-text-primary);
+}
+
+.authorRole {
+  white-space: pre;
+  font-size: 16px;
+  line-height: 1.8;
+  color: var(--color-text-muted);
+}
+
+/* --- arrows --- */
+
+.controls {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  pointer-events: none;
+}
+
+.arrow {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  overflow: hidden;
+  border-radius: 5px;
+  background-color: rgb(255 255 255 / 3%);
+  pointer-events: auto;
+}
+
+.arrow[data-hidden] {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.arrowIconLeft,
+.arrowIconRight {
+  width: 18px;
+  height: 18px;
+  color: var(--color-text-primary);
+}
+
+.arrowIconLeft {
+  transform: rotate(90deg);
+}
+
+.arrowIconRight {
+  transform: rotate(-90deg);
+}
+
+/* --- partner logo cloud --- */
+
+.logoCloud {
+  width: 90%;
+  opacity: 0.5;
+}
+
+.logoViewport {
+  position: relative;
+  height: 50px;
+  overflow: hidden;
+  padding: 10px;
+  mask-image: linear-gradient(to right, transparent 0%, #000 12.5%, #000 87.5%, transparent 100%);
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    #000 12.5%,
+    #000 87.5%,
+    transparent 100%
+  );
+}
+
+.logoTrack {
+  display: flex;
+  gap: 75px;
+  width: max-content;
+  height: 100%;
+  align-items: center;
+  padding-inline-end: 75px;
+  animation: scroll 30s linear infinite;
+  will-change: transform;
+}
+
+.logoItem {
+  flex: none;
+}
+
+.logo {
+  height: 36px;
+  width: auto;
+  /* Source art is dark; invert so it reads white on black, as the reference does. */
+  filter: invert(1);
+}
+
+@keyframes scroll {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (min-width: 810px) and (max-width: 1199.98px) {
+  .container {
+    gap: 75px;
+    max-width: 850px;
+  }
+
+  .titleBlock {
+    width: 70%;
+  }
+
+  .card {
+    padding: 50px;
+  }
+
+  .carousel {
+    padding: 0 50px;
+  }
+
+  .quoteText {
+    font-size: 29px;
+  }
+}
+
+@media (max-width: 809.98px) {
+  .section {
+    padding: 0 20px 100px;
+  }
+
+  .container {
+    gap: 50px;
+    max-width: 600px;
+  }
+
+  .titleBlock {
+    width: 100%;
+  }
+
+  .card {
+    padding: 30px;
+  }
+
+  .carousel {
+    padding: 0 0 75px;
+  }
+
+  .quoteText {
+    font-size: 23px;
+  }
+
+  .quoteCard {
+    gap: 30px;
+  }
+
+  .logoCloud {
+    width: 100%;
+  }
+  .arrow {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logoTrack {
+    animation: none;
+  }
+}

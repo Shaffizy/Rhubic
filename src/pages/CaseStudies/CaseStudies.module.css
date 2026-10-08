@@ -1,0 +1,285 @@
+/* CaseStudies — measured from the reference /case-studies page (framer-xvNvH):
+   hero (framer-1b6siwq): pad 250/30/200 (phone 175/20/100), gap 40, centred;
+             backdrop absolute inset 0 holds the full-bleed ghost-masked
+             photo (same treatment as Services/About); container max 1200 (850
+             tablet / 600 phone) row-centred; title block flex 1 capped at
+             600, gap 20 centred; h1 preset 4xbdk9 = 100px/400/-0.05em/1.15
+             (80 tablet / 50 phone); lead preset 1qiv7jj = 19px/1.7 muted.
+   list (framer-1mbf5g8): pad 0/30/150 (phone 0/20/125), gap 40, scroll
+             margin 50; container gap 40, max 1200 (850 / 600); grid is a
+             SINGLE column at every breakpoint — six full-width rows,
+             gap 50 (40 tablet+phone).
+   card (framer-N2NL6.14lik7l): row centred, gap 60, pad right 60, radius 20,
+             #111 on border + inset sheen, cursor pointer; image 350 wide
+             (300 tablet), self-stretch, min-height 350; texts flex 1 gap 20;
+             title preset dfwzla = 36/30/26px 500 -0.03em; mission = lead
+             preset; 15px spacer then tags row gap 10. Phone variant: stacked,
+             pad 0, image 100%x350, texts padded 40.
+   tag (framer-fhzdZ.hu8x4i): pad 5/15, radius 10, 7% border, 16px/1.8 white. */
+
+.page {
+  background-color: var(--color-bg);
+}
+
+/* --- hero --- */
+
+.hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  width: 100%;
+  padding: 250px 30px 200px;
+  overflow: hidden;
+}
+
+.heroBackdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.heroImageBox {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.heroImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  /* Ghost wash: 10% at centre, gone by the edges (reference inline mask). */
+  mask: radial-gradient(50% 50%, rgb(0 0 0 / 10%) 0%, transparent 100%);
+  -webkit-mask: radial-gradient(50% 50%, rgb(0 0 0 / 10%) 0%, transparent 100%);
+}
+
+.heroContainer {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: var(--container);
+}
+
+.titleBlock {
+  display: flex;
+  flex: 1 0 0;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  max-width: 600px;
+  text-align: center;
+}
+
+.h1 {
+  width: 100%;
+  font-size: 100px;
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: -0.05em;
+  color: var(--color-text-primary);
+}
+
+.lead {
+  width: 100%;
+  margin: 0;
+  font-size: var(--fs-lead);
+  line-height: 1.7;
+  color: var(--color-text-muted);
+  text-wrap: balance;
+}
+
+/* --- case study list --- */
+
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  width: 100%;
+  padding: 0 30px 150px;
+  scroll-margin-top: 50px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  width: 100%;
+  max-width: var(--container);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(50px, 1fr));
+  grid-auto-rows: minmax(0, 1fr);
+  gap: 50px;
+  width: 100%;
+  justify-content: center;
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  gap: 60px;
+  width: 100%;
+  padding: 0 60px 0 0;
+  border: 1px solid var(--color-border);
+  border-radius: 20px;
+  background-color: var(--color-surface);
+  box-shadow: inset 0 1px 20px 0 var(--color-sheen);
+  overflow: hidden;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.cardImageWrap {
+  flex: none;
+  align-self: stretch;
+  width: 350px;
+  min-height: 350px;
+  overflow: hidden;
+}
+
+.cardImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.cardTexts {
+  display: flex;
+  flex: 1 0 0;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  min-width: 0;
+}
+
+.cardTitle {
+  width: 100%;
+  margin: 0;
+  font-size: 36px;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+  color: var(--color-text-primary);
+}
+
+.cardMission {
+  width: 100%;
+  margin: 0;
+  font-size: var(--fs-lead);
+  line-height: 1.7;
+  color: var(--color-text-muted);
+}
+
+.spacer {
+  display: block;
+  width: 100%;
+  height: 15px;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.tag {
+  display: flex;
+  align-items: center;
+  padding: 5px 15px;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  font-size: 16px;
+  line-height: 1.8;
+  color: var(--color-text-primary);
+  white-space: nowrap;
+}
+
+/* --- tablet (810–1199.98) --- */
+
+@media (min-width: 810px) and (max-width: 1199.98px) {
+  .heroContainer,
+  .container {
+    max-width: 850px;
+  }
+
+  .h1 {
+    font-size: 80px;
+  }
+
+  .grid {
+    gap: 40px;
+  }
+
+  .cardImageWrap {
+    width: 300px;
+  }
+
+  .cardTitle {
+    font-size: 30px;
+  }
+}
+
+/* --- phone (≤809.98) --- */
+
+@media (max-width: 809.98px) {
+  .hero {
+    padding: 175px 20px 100px;
+  }
+
+  .heroContainer,
+  .container {
+    max-width: 600px;
+  }
+
+  .h1 {
+    font-size: 50px;
+  }
+
+  .section {
+    padding: 0 20px 125px;
+  }
+
+  .grid {
+    gap: 40px;
+  }
+
+  .card {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 0;
+  }
+
+  .cardImageWrap {
+    align-self: auto;
+    width: 100%;
+    min-height: 0;
+    height: 350px;
+  }
+
+  .cardTexts {
+    flex: none;
+    width: 100%;
+    padding: 40px;
+  }
+
+  .cardTitle {
+    font-size: 26px;
+  }
+}

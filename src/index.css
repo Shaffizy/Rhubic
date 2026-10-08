@@ -1,0 +1,274 @@
+/*
+  index.css — the global reset and the design tokens every component reads.
+  Owns: colours, type scale, spacing, radii, easing, and the font faces.
+  Does NOT own any component layout; that lives in each section's module.
+*/
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('./assets/fonts/inter-latin.woff2') format('woff2');
+}
+
+/* Poiret One, Regular only. Sourced from the official Google Fonts release
+   (OFL 1.1, licence alongside at PoiretOne-OFL.txt). */
+@font-face {
+  font-family: 'Poiret One';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('./assets/fonts/PoiretOne-Regular.ttf') format('truetype');
+}
+
+:root {
+  /* Surfaces — the site is black-first, with each step a little lighter. */
+  --color-bg: #000;
+  --color-surface: #0f0f0f;
+  --color-surface-raised: #111111;
+  --color-secondary: #1f1f1f;
+  --color-border: rgb(255 255 255 / 7%);
+  /* The reference's inset-highlight sheen. Same value as --color-border but a
+     separate token upstream, and it needs a longer blur on the footer. */
+  --color-sheen: rgb(255 255 255 / 7%);
+  --color-border-strong: #d3dadb;
+
+  /* Text — three steps, dimmest for supporting detail. */
+  --color-text-primary: #fff;
+  --color-text-muted: #969696;
+  --color-text-dim: #545454;
+
+  /* Accents. */
+  --color-accent: #5800b0;
+  --color-accent-hover: #4a0094;
+  --color-green: #1b942b;
+  --color-star: #ffcc4a;
+  --color-chart: #7851a9;
+
+  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-wordmark: 'Poiret One', var(--font-sans);
+
+  /* Fixed px per breakpoint — the reference does not use clamp() anywhere. */
+  --fs-h1: 66px;
+  --fs-h2: 56px;
+  --fs-h5: 19px;
+  --fs-lead: 19px;
+  --fs-body: 19px;
+
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-row: 14px;
+  --radius-pill: 999px;
+
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 20px;
+  --space-4: 30px;
+  --space-5: 48px;
+  --space-6: 64px;
+
+  --container: 1200px;
+  --gutter: 30px;
+
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --dur-fast: 150ms;
+  --dur-base: 300ms;
+}
+
+@media (min-width: 810px) and (max-width: 1199.98px) {
+  :root {
+    --fs-h1: 46px;
+    --fs-h2: 40px;
+    --fs-lead: 17px;
+    --fs-body: 17px;
+  }
+}
+
+@media (max-width: 809.98px) {
+  :root {
+    --fs-h1: 36px;
+    --fs-h2: 34px;
+    --fs-lead: 17px;
+    --fs-body: 17px;
+    --gutter: 20px;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img,
+svg,
+video,
+canvas {
+  display: block;
+  max-width: 100%;
+}
+
+img {
+  height: auto;
+}
+
+ul,
+ol {
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-weight: 400;
+  letter-spacing: -0.04em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+
+/* --- scroll reveals -------------------------------------------------------
+   Opt-in per element via [data-reveal]. Hidden initial state is gated on
+   html.js (set in main.jsx) so no-JS/failed-JS renders stay visible.
+   Transform+opacity only — no layout shift. One-shot: useReveal adds
+   [data-revealed] when the element crosses 15% visibility. */
+
+.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 600ms var(--ease),
+    transform 600ms var(--ease);
+}
+
+.js [data-reveal][data-revealed] {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* --- word-stagger headings (RevealHeading) --------------------------------
+   Words are inline-block spans with --w = their index. They start hidden and
+   release with a per-word delay when their ancestor [data-reveal] element
+   gets [data-revealed] — same gate as the block reveal above. */
+
+.js [data-reveal-word] {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(10px);
+  transition:
+    opacity 500ms var(--ease),
+    transform 500ms var(--ease);
+  transition-delay: calc(var(--w) * 65ms);
+}
+
+.js [data-reveal][data-revealed] [data-reveal-word],
+.js [data-revealed] [data-reveal-word] {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js [data-reveal-word] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* --- scrollbar ---------------------------------------------------------------
+   Flat rectangular thumb, no arrow buttons, transparent track.
+   Chromium/Safari: ::-webkit-scrollbar rules (these only work if
+   scrollbar-color / scrollbar-width are NOT set).
+   Firefox: the standard properties, applied only where webkit
+   pseudo-elements are unsupported. */
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(255 255 255 / 22%);
+  border-radius: 0;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(255 255 255 / 34%);
+}
+
+::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+::-webkit-scrollbar-corner {
+
+  background: transparent;
+}
+
+/* Firefox only */
+@supports not selector(::-webkit-scrollbar) {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(255 255 255 / 22%) transparent;
+  }
+}

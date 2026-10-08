@@ -1,0 +1,275 @@
+/* ChatWidget — fixed bottom-right notch + chat panel above it.
+   Toggle: the notch (or the panel's X / Escape) flips `panelOpen`; the
+   closed panel stays mounted but visibility:hidden (drops it from the tab
+   order and a11y tree) so it can slide in and out both ways.
+   Panel content: brand header (cube avatar + online dot), scrollable
+   message log (bot bubbles left, user bubbles right), composer with input
+   + purple send circle. */
+
+.root {
+  position: fixed;
+  right: var(--gutter);
+  bottom: var(--space-4);
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+}
+
+/* --- notch --- */
+
+.button {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border: none;
+  border-radius: 50%;
+  background-color: var(--color-accent);
+  color: var(--color-text-primary);
+  box-shadow:
+    inset 0 1px 20px 0 rgb(255 255 255 / 15%),
+    0 8px 24px rgb(0 0 0 / 45%);
+  cursor: pointer;
+  transition:
+    background-color var(--dur-fast) var(--ease),
+    transform var(--dur-base) var(--ease),
+    box-shadow var(--dur-base) var(--ease);
+}
+
+.button:hover {
+  background-color: var(--color-accent-hover);
+  transform: translateY(-2px);
+  box-shadow:
+    inset 0 1px 20px 0 rgb(255 255 255 / 20%),
+    0 0 5px rgb(49 77 180 / 50%),
+    0 0 25px rgb(49 77 180 / 50%),
+    0 0 50px rgb(49 77 180 / 40%);
+}
+
+.button:active {
+  transform: translateY(0) scale(0.94);
+}
+
+.buttonOpen {
+  background-color: var(--color-accent-hover);
+}
+
+.icon {
+  width: 26px;
+  height: 26px;
+}
+
+/* --- panel --- */
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  width: min(360px, calc(100vw - 2 * var(--gutter)));
+  height: min(520px, calc(100vh - 160px));
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface);
+  box-shadow:
+    inset 0 1px 20px 0 var(--color-sheen),
+    0 16px 48px rgb(0 0 0 / 55%);
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(14px) scale(0.97);
+  transform-origin: bottom right;
+  transition:
+    opacity var(--dur-base) var(--ease),
+    transform var(--dur-base) var(--ease),
+    visibility 0s linear var(--dur-base);
+}
+
+.panelOpen {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: none;
+  transition-delay: 0s;
+}
+
+.panelHead {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.avatar {
+  flex: none;
+  width: 36px;
+  /* height: 36px; */
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.panelTitles {
+  flex: 1;
+  min-width: 0;
+}
+
+.panelName {
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--color-text-primary);
+}
+
+.panelStatus {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  letter-spacing: -0.02em;
+  color: var(--color-text-dim);
+}
+
+.statusDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: var(--color-green);
+}
+
+.panelClose {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition:
+    background-color var(--dur-fast) var(--ease),
+    color var(--dur-fast) var(--ease);
+}
+
+.panelClose:hover {
+  background-color: var(--color-secondary);
+  color: var(--color-text-primary);
+}
+
+.panelCloseIcon {
+  width: 16px;
+  height: 16px;
+}
+
+/* --- messages --- */
+
+.messages {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 0;
+  padding: 16px;
+  overflow-y: auto;
+  scrollbar-gutter: stable;
+}
+
+.bubble {
+  max-width: 86%;
+  margin: 0;
+  padding: 10px 14px;
+  border-radius: var(--radius-row);
+  font-size: 14.5px;
+  line-height: 1.55;
+  letter-spacing: -0.01em;
+}
+
+.bubbleBot {
+  align-self: flex-start;
+  border-bottom-left-radius: 4px;
+  background-color: var(--color-secondary);
+  color: var(--color-text-muted);
+}
+
+.bubbleUser {
+  align-self: flex-end;
+  border-bottom-right-radius: 4px;
+  background-color: var(--color-accent);
+  color: var(--color-text-primary);
+}
+
+/* --- composer --- */
+
+.composer {
+  display: flex;
+  gap: 8px;
+  padding: 12px;
+  border-top: 1px solid var(--color-border);
+}
+
+.input {
+  flex: 1;
+  min-width: 0;
+  padding: 10px 16px;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  background-color: var(--color-secondary);
+  font: inherit;
+  font-size: 15px;
+  color: var(--color-text-primary);
+}
+
+.input::placeholder {
+  color: var(--color-text-dim);
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--color-accent);
+}
+
+.send {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border: none;
+  border-radius: 50%;
+  background-color: var(--color-accent);
+  color: var(--color-text-primary);
+  cursor: pointer;
+  transition:
+    background-color var(--dur-fast) var(--ease),
+    transform var(--dur-fast) var(--ease);
+}
+
+.send:hover {
+  background-color: var(--color-accent-hover);
+  transform: scale(1.05);
+}
+
+.send:active {
+  transform: scale(0.95);
+}
+
+.sendIcon {
+  width: 18px;
+  height: 18px;
+}
+
+/* --- phone --- */
+
+@media (max-width: 609px) {
+  .root {
+    right: 16px;
+    bottom: 16px;
+  }
+
+  .panel {
+    width: calc(100vw - 32px);
+    height: min(480px, calc(100vh - 130px));
+  }
+}

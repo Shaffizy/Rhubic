@@ -1,0 +1,236 @@
+/* Services — traced from the reference /services page (framer-Xyvvw):
+   hero (framer-f2fwlj): pad 250/30/150 (phone 175/20/100), overflow hidden;
+             backdrop absolute inset 0; the photo is full-bleed (the
+             reference mounts the image box with inline 100% and sizes=100vw,
+             overriding the class rule's 1200x588 default) with a radial mask
+             to a 10% ghost at centre fading to 0 at the edges;
+             container z2, max 1200 (850 tablet / 600 phone); title block
+             70% wide (100% phone), gap 10; h1 preset 4xbdk9 = 100px/400/-
+             0.05em/1.15 centred (80 tablet / 50 phone); lead 1qiv7jj.
+   list (framer-2f7cl5): pad 0/30/150 (phone 0/20/100), gap 60, centred;
+             container max 1200 (850 / 600); grid 2 cols minmax(50px,1fr)
+             gap 30, auto-rows minmax(0,1fr) — 1 col on phone.
+   card (framer-radUU.lxek5e): row wrap, gap 30, pad 30, radius 20 (inline),
+             #0f0f0f, 7% border, inset sheen; image 150px wide, self-stretch,
+             radius 10; texts flex 1, column gap 10; title 22/500, desc
+             16/1.8 muted. Phone variant: column, width 250, image 100%x200. */
+
+.page {
+  background-color: var(--color-bg);
+}
+
+/* --- hero --- */
+
+.hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 250px 30px 150px;
+  overflow: hidden;
+}
+
+.heroBackdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.heroImageBox {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.heroImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  /* Ghost wash: 10% at centre, gone by the edges (reference inline mask). */
+  mask: radial-gradient(50% 50%, rgb(0 0 0 / 10%) 0%, transparent 100%);
+  -webkit-mask: radial-gradient(50% 50%, rgb(0 0 0 / 10%) 0%, transparent 100%);
+}
+
+.heroContainer {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: var(--container);
+}
+
+.titleBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: 70%;
+}
+
+.h1 {
+  width: 100%;
+  font-size: 100px;
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: -0.05em;
+  color: var(--color-text-primary);
+  text-align: center;
+}
+
+.lead {
+  width: 100%;
+  font-size: var(--fs-lead);
+  line-height: 1.7;
+  color: var(--color-text-muted);
+  text-align: center;
+  text-wrap: balance;
+}
+
+/* --- service list --- */
+
+.list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 60px;
+  width: 100%;
+  padding: 0 30px 150px;
+}
+
+.listContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: var(--container);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(50px, 1fr));
+  grid-auto-rows: minmax(0, 1fr);
+  gap: 30px;
+  width: 100%;
+}
+
+.card {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  align-content: flex-start;
+  gap: 30px;
+  padding: 30px;
+  border: 1px solid var(--color-border);
+  border-radius: 20px;
+  background-color: var(--color-surface);
+  box-shadow: inset 0 1px 20px 0 var(--color-sheen);
+  text-decoration: none;
+}
+
+.cardImageWrap {
+  flex: none;
+  align-self: stretch;
+  width: 150px;
+  max-width: 100%;
+  overflow: hidden;
+  border-radius: 10px;
+  max-height: 130px;
+}
+
+.cardImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.cardTexts {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  min-width: 0;
+}
+
+.cardTitle {
+  width: 100%;
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: -0.02em;
+  color: var(--color-text-primary);
+}
+
+.cardDescription {
+  width: 100%;
+  font-size: 16px;
+  line-height: 1.8;
+  color: var(--color-text-muted);
+}
+
+@media (min-width: 810px) and (max-width: 1199.98px) {
+  .h1 {
+    font-size: 80px;
+  }
+
+  .heroContainer,
+  .listContainer {
+    max-width: 850px;
+  }
+}
+
+@media (max-width: 809.98px) {
+  .hero {
+    padding: 175px 20px 100px;
+  }
+
+  .heroContainer,
+  .listContainer {
+    max-width: 600px;
+  }
+
+  .titleBlock {
+    width: 100%;
+  }
+
+  .h1 {
+    font-size: 50px;
+  }
+
+  .list {
+    padding: 0 20px 100px;
+  }
+
+  .grid {
+    grid-template-columns: repeat(1, minmax(50px, 1fr));
+  }
+
+  /* Phone card variant: stacked, 250 wide, image 200 tall. */
+  .card {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 250px;
+    max-width: 100%;
+    cursor: unset;
+  }
+
+  .cardImageWrap {
+    align-self: unset;
+    width: 100%;
+    height: 200px;
+  }
+
+  .cardTexts {
+    flex: none;
+    width: 100%;
+  }
+}

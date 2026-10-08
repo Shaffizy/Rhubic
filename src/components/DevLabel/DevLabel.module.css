@@ -1,0 +1,18 @@
+/* DevLabel — hidden in production builds via the dead-code-eliminated import. */
+
+.label {
+  display: none;
+}
+
+@media (mode: development) {
+  .label {
+    display: inline-block;
+    padding: 2px 8px;
+    border: 1px dashed var(--color-text-dim);
+    border-radius: var(--radius-sm);
+    color: var(--color-text-dim);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+}

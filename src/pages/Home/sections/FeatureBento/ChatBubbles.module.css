@@ -1,0 +1,54 @@
+/* ChatBubbles — traced from the reference (framer-uXDxz): 270x220 stack,
+   top-aligned, bubbles row/gap 10; 35px round avatars; text pads 15/20 with
+   radius 10. Incoming bubble sits on 7% white (the reference's border token
+   used as a fill); the reply is solid black with a deep drop shadow. */
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 20px;
+  width: 100%;
+  height: 220px;
+}
+
+.bubble {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.avatar {
+  flex: none;
+  width: 35px;
+  height: 35px;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.text {
+  flex: 1;
+  min-width: 0;
+  padding: 15px 20px;
+  border-radius: 10px;
+  font-size: 16px;
+  line-height: 1.8;
+  color: var(--color-text-muted);
+}
+
+.textIn {
+  background-color: rgb(255 255 255 / 7%);
+}
+
+.textOut {
+  background-color: #000;
+  box-shadow: 0 50px 20px -30px rgb(0 0 0 / 50%);
+}

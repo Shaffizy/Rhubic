@@ -1,0 +1,140 @@
+/* CookieConsent — floating permission card, bottom-left (chat owns
+   bottom-right). Dark glass card: inset sheen + backdrop blur, purple icon
+   badge, purple Accept / ghost Essential-only buttons. Slides up on mount
+   (the component only renders when no consent cookie exists). */
+
+.bar {
+  position: fixed;
+  left: var(--gutter);
+  bottom: var(--space-4);
+  z-index: 150;
+  display: flex;
+  gap: 16px;
+  width: min(420px, calc(100vw - 2 * var(--gutter)));
+  padding: 20px;
+  border: 1px solid var(--color-border);
+  border-radius: 20px;
+  background-color: rgb(15 15 15 / 92%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow:
+    inset 0 1px 20px 0 var(--color-sheen),
+    0 16px 48px rgb(0 0 0 / 55%);
+  animation: cookie-rise 500ms var(--ease) both;
+}
+
+@keyframes cookie-rise {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+}
+
+.iconBadge {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background-color: var(--color-accent);
+  box-shadow: inset 0 1px 20px 0 rgb(255 255 255 / 15%);
+  color: var(--color-text-primary);
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+}
+
+.body {
+  flex: 1;
+  min-width: 0;
+}
+
+.title {
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--color-text-primary);
+}
+
+.text {
+  margin-top: 6px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--color-text-muted);
+}
+
+.link {
+  color: #9d7bff;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.link:hover {
+  color: #b79aff;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.accept,
+.decline {
+  padding: 10px 18px;
+  border-radius: 10px;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  transition:
+    background-color var(--dur-fast) var(--ease),
+    border-color var(--dur-fast) var(--ease),
+    transform var(--dur-fast) var(--ease);
+}
+
+.accept {
+  border: 1px solid transparent;
+  background-color: var(--color-accent);
+  box-shadow: inset 0 1px 20px 0 rgb(255 255 255 / 15%);
+  color: var(--color-text-primary);
+}
+
+.accept:hover {
+  background-color: var(--color-accent-hover);
+  transform: translateY(-1px);
+}
+
+.decline {
+  border: 1px solid var(--color-border);
+  background-color: transparent;
+  color: var(--color-text-muted);
+}
+
+.decline:hover {
+  border-color: var(--color-text-dim);
+  color: var(--color-text-primary);
+}
+
+.accept:active,
+.decline:active {
+  transform: translateY(0);
+}
+
+/* --- phone: sit above the chat notch row --- */
+
+@media (max-width: 609px) {
+  .bar {
+    left: 16px;
+    right: 16px;
+    bottom: 86px;
+    width: auto;
+    padding: 16px;
+    gap: 12px;
+  }
+}

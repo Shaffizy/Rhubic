@@ -1,0 +1,66 @@
+/* Notifications — traced from the reference (framer-RcFVG): 270x220 stack,
+   cards 100% wide, 20px padding, radius 10, black fill; the second card
+   carries a deep drop shadow. Icon circle: 10px padding (50px total),
+   surface fill, 30px thin-weight glyph. */
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  width: 100%;
+  height: 220px;
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  padding: 20px;
+  overflow: hidden;
+  border-radius: 10px;
+  background-color: #000;
+}
+
+.cardRaised {
+  box-shadow: 0 50px 20px -30px rgb(0 0 0 / 50%);
+}
+
+.icon {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  border-radius: 50px;
+  background-color: var(--color-surface);
+}
+
+.iconGlyph {
+  width: 30px;
+  height: 30px;
+  color: var(--color-text-primary);
+}
+
+.texts {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.title {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: -0.02em;
+  color: var(--color-text-primary);
+}
+
+.time {
+  font-size: 16px;
+  line-height: 1.8;
+  color: var(--color-text-muted);
+}

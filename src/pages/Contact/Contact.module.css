@@ -1,0 +1,338 @@
+/* Contact — measured from the reference /contact page (framer-WGQfR):
+   hero (framer-h9ug00): pad 250/30/150 (phone 175/20/100), gap 50, centred;
+             backdrop absolute inset 0 holds the full-bleed ghost-masked
+             photo;
+             container max 1200 (850 tablet / 600 phone); title block 70%
+             (100% phone) gap 20 centred; h1 preset 4xbdk9 = 100px/400/
+             -0.05em/1.15 (80 tablet / 50 phone); lead 1qiv7jj = 19px/1.7
+             muted.
+   form section (framer-ec2e6m): pad 0/30/150 (phone 0/20/100), gap 50,
+             scroll margin 50; container same as hero; Form Box (dz7qe7)
+             max 600, pad 50 (40 phone), radius 20, #0f0f0f on the 7%
+             border + inset sheen, column gap 20; h4 preset 1c8pf2x =
+             22/500/-0.02em; intro 16/1.8 muted; 1px spacer; form gap 20;
+             field gap 10, label 16/1.8 muted.
+   inputs (framer-form-input): height 50 (textarea min 125, vertical
+             resize), pad 12, radius 10, white bg on the 7% border (tokens
+             resolved from the theme definitions, NOT the stale #d7dfe0 /
+             blue fallbacks), text #545454, placeholder #969696, focus
+             border token = #0072b0.
+   submit (framer-9gNi1): width 100%, height 50, pad 15/30, radius 10,
+             bg rgb(67, 0, 176) (literal — the reference's form button
+             differs from the navbar's #5800b0), glow 0 1px 7px #0072b0,
+             label preset 1e1xpj8 = 16/500/-0.02em white; hover blooms the
+             1px blur-40 white shape (reference's Blurry Shape). */
+
+.page {
+  background-color: var(--color-bg);
+}
+
+/* --- hero --- */
+
+.hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 50px;
+  width: 100%;
+  padding: 250px 30px 150px;
+  overflow: hidden;
+}
+
+.heroBackdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.heroImageBox {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.heroImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  /* Ghost wash: 10% at centre, gone by the edges (reference inline mask). */
+  mask: radial-gradient(50% 50%, rgb(0 0 0 / 10%) 0%, transparent 100%);
+  -webkit-mask: radial-gradient(50% 50%, rgb(0 0 0 / 10%) 0%, transparent 100%);
+}
+
+.heroContainer {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 50px;
+  width: 100%;
+  max-width: var(--container);
+}
+
+.titleBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 70%;
+  text-align: center;
+}
+
+.h1 {
+  width: 100%;
+  font-size: 100px;
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: -0.05em;
+  color: var(--color-text-primary);
+}
+
+.lead {
+  width: 100%;
+  margin: 0;
+  font-size: var(--fs-lead);
+  line-height: 1.7;
+  color: var(--color-text-muted);
+  text-wrap: balance;
+}
+
+/* --- form section --- */
+
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 50px;
+  width: 100%;
+  padding: 0 30px 150px;
+  scroll-margin-top: 50px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 50px;
+  width: 100%;
+  max-width: var(--container);
+}
+
+.formBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  max-width: 600px;
+  padding: 50px;
+  border: 1px solid var(--color-border);
+  border-radius: 20px;
+  background-color: var(--color-surface);
+  box-shadow: inset 0 1px 20px 0 var(--color-sheen);
+  overflow: hidden;
+}
+
+.formHeading {
+  width: 100%;
+  margin: 0;
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: -0.02em;
+  color: var(--color-text-primary);
+}
+
+.formIntro {
+  width: 100%;
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.8;
+  color: var(--color-text-muted);
+  text-wrap: balance;
+}
+
+.formSpacer {
+  display: block;
+  width: 100%;
+  height: 1px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  width: 100%;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  width: 100%;
+}
+
+.fieldLabel {
+  width: 100%;
+  font-size: 16px;
+  line-height: 1.8;
+  color: var(--color-text-muted);
+}
+
+.input,
+.textarea {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  background-color: #fff;
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--color-text-dim);
+}
+
+.input {
+  height: 50px;
+}
+
+.textarea {
+  min-height: 125px;
+  resize: vertical;
+}
+
+.input::placeholder,
+.textarea::placeholder {
+  color: var(--color-text-muted);
+}
+
+.input:focus,
+.textarea:focus {
+  outline: none;
+  border-color: #0072b0;
+}
+
+.input[aria-invalid='true'],
+.textarea[aria-invalid='true'] {
+  border-color: #ff6b6b;
+}
+
+.fieldError {
+  width: 100%;
+  font-size: 14px;
+  line-height: 1.4;
+  color: #ff6b6b;
+}
+
+.submitWrap {
+  width: 100%;
+}
+
+.submit {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 50px;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 10px;
+  background-color: rgb(67, 0, 176);
+  box-shadow: 0 1px 7px 0 #0072b0;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+/* The reference's Blurry Shape: a 1px blur-40 dot that blooms on hover. */
+.submitBlur {
+  position: absolute;
+  top: calc(50% - 0.5px);
+  left: calc(50% - 0.5px);
+  width: 1px;
+  height: 1px;
+  background-color: #fff;
+  filter: blur(40px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.submit:hover .submitBlur {
+  inset: 0 30px;
+  width: auto;
+  height: auto;
+  opacity: 1;
+}
+
+.submitLabel {
+  position: relative;
+  z-index: 1;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: -0.02em;
+  color: var(--color-text-primary);
+  white-space: nowrap;
+}
+
+.success {
+  width: 100%;
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.8;
+  text-align: center;
+  color: var(--color-text-primary);
+}
+
+/* --- tablet (810–1199.98) --- */
+
+@media (min-width: 810px) and (max-width: 1199.98px) {
+  .heroContainer,
+  .container {
+    max-width: 850px;
+  }
+
+  .h1 {
+    font-size: 80px;
+  }
+}
+
+/* --- phone (≤809.98) --- */
+
+@media (max-width: 809.98px) {
+  .hero {
+    padding: 175px 20px 100px;
+  }
+
+  .heroContainer,
+  .container {
+    max-width: 600px;
+  }
+
+  .titleBlock {
+    width: 100%;
+  }
+
+  .h1 {
+    font-size: 50px;
+  }
+
+  .section {
+    padding: 0 20px 100px;
+  }
+
+  .formBox {
+    padding: 40px;
+  }
+}
