@@ -12,7 +12,7 @@ import webDesign from '@/assets/images/service-web-design.jpg';
 export const heading = 'Services';
 
 export const lead =
-  'From branding to websites, we deliver high-impact design solutions that scale with your business—fast, flexible, and on demand.';
+  'From branding to websites, we deliver high-impact design solutions that scale with your business. Fast, flexible, and on demand.';
 
 export const serviceItems = [
   {
@@ -30,17 +30,17 @@ export const serviceItems = [
     image: graphicDesign,
   },
   {
-    slug: 'framer-design',
-    title: 'Framer Design',
+    slug: 'email-marketing',
+    title: 'Email Marketing',
     description:
-      'Interactive, responsive websites built in Framer—blending clean design with powerful no-code functionality.',
+      'Engaging email campaigns and automated journeys designed to nurture leads, build customer relationships, and drive conversions.',
     image: framerDesign,
   },
   {
     slug: 'web-design',
     title: 'Web Design',
     description:
-      'Custom websites designed to impress clients, convert, and scale—built with strategy, not just style.',
+      'Custom websites designed to impress clients, convert, and scale. Built with strategy, not just style.',
     image: webDesign,
   },
 ];

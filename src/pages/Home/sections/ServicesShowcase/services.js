@@ -8,12 +8,12 @@ import { BrowserIcon, ChartUpIcon, FunnelIcon, MegaphoneIcon, MonitorIcon, PenNi
 export const heading = 'Our designers work with a wide range of projects';
 
 export const lead =
-  'From landing pages to full websites, UI/UX to ongoing updates—our expert designers bring your vision to life, hassle-free.';
+  'From landing pages to full websites, UI/UX to ongoing updates, our expert designers bring your vision to life, hassle-free.';
 
 export const servicePills = [
   { slug: 'brand-identity', Icon: MonitorIcon, title: 'Brand Identity' },
   { slug: 'graphic-design', Icon: PencilIcon, title: 'Graphic Design' },
-  { slug: 'framer-design', Icon: FunnelIcon, title: 'Framer Design' },
+  { slug: 'email-marketing', Icon: FunnelIcon, title: 'Email Marketing' },
   { slug: 'web-design', Icon: BrowserIcon, title: 'Web Design' },
   { slug: 'digital-advertising', Icon: MegaphoneIcon, title: 'Digital Advertising' },
 ];
