@@ -2,8 +2,7 @@
   Contact — the /contact page. Two sections: ghost-image hero and the
   "Get in touch" form card (name / email / message).
   Owns: page layout, form state, client-side validation and the submit
-  success state. There is no backend and no form SDK: a valid submit
-  reports success locally only.
+  success state. Valid submissions are posted to Netlify Forms.
   Does NOT own: the shell (Navbar/Footer in App.jsx), the copy
   (sections/contact.js) or reveal timing (index.css + useReveal — wired
   here via data-reveal attributes).
@@ -23,6 +22,8 @@ export default function Contact() {
   const [values, setValues] = useState({ Name: '', Email: '', Message: '' });
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [submitError, setSubmitError] = useState('');
   const errorRefs = { Name: useRef(null), Email: useRef(null), Message: useRef(null) };
 
   const handleChange = (event) => {
@@ -31,8 +32,9 @@ export default function Contact() {
     setErrors((prev) => ({ ...prev, [name]: undefined }));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    if (sending) return;
 
     const next = {};
     if (!values.Name.trim()) next.Name = 'Please enter your name.';
@@ -45,7 +47,21 @@ export default function Contact() {
       errorRefs[first].current?.focus();
       return;
     }
-    setSubmitted(true);
+    setSending(true);
+    setSubmitError('');
+    try {
+      const response = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({ 'form-name': 'sales-contact', ...values }).toString(),
+      });
+      if (!response.ok) throw new Error('Submission failed');
+      setSubmitted(true);
+    } catch {
+      setSubmitError('Your message could not be sent. Please try again or email sales@rhubixstudios.com.');
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -79,7 +95,8 @@ export default function Contact() {
                 {form.success}
               </p>
             ) : (
-              <form className={styles.form} onSubmit={handleSubmit} noValidate>
+              <form name="sales-contact" method="POST" className={styles.form} onSubmit={handleSubmit} noValidate>
+                <input type="hidden" name="form-name" value="sales-contact" />
                 {form.fields.map((field) => (
                   <label className={styles.field} key={field.name}>
                     <span className={styles.fieldLabel}>{field.name}</span>
@@ -114,9 +131,10 @@ export default function Contact() {
                 ))}
 
                 <div className={styles.submitWrap}>
-                  <button type="submit" className={styles.submit}>
+                  {submitError && <p role="alert">{submitError}</p>}
+                  <button type="submit" className={styles.submit} disabled={sending}>
                     <span className={styles.submitBlur} aria-hidden="true" />
-                    <span className={styles.submitLabel}>{form.submitLabel}</span>
+                    <span className={styles.submitLabel}>{sending ? 'Sending...' : form.submitLabel}</span>
                   </button>
                 </div>
               </form>

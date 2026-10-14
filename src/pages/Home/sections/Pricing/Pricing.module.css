@@ -129,6 +129,37 @@
   gap: 10px;
 }
 
+.promoBadge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
+  padding: 9px 18px 9px 24px;
+  border: 1px solid #ff6b76;
+  border-top: 0;
+  border-right: 0;
+  border-radius: 0 0 0 12px;
+  background: #d7263d;
+  box-shadow: 0 4px 12px rgb(215 38 61 / 25%), inset 0 1px 0 rgb(255 255 255 / 20%);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.promoPrice {
+  position: relative;
+  display: flex;
+  /* flex-direction: column; */
+  gap: 8px;
+}
+
+.originalPrice {
+  color: var(--color-text-muted);
+  font-size: 18px;
+  text-decoration-thickness: 2px;
+}
+
 .price {
   white-space: pre;
   font-size: 30px;

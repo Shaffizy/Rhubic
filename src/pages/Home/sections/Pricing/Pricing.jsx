@@ -17,15 +17,19 @@ function PlanCard({ plan }) {
   return (
     <article className={`${styles.planCard} ${plan.accent ? styles.planCardAccent : ''}`}>
       {plan.accent && <div className={styles.accentOverlay} aria-hidden="true" />}
+      <span className={styles.promoBadge}>PROMO</span>
 
       <div className={styles.cardHead}>
         <h4 className={styles.cardTitle}>{plan.name}</h4>
         <p className={styles.cardDescription}>{plan.description}</p>
       </div>
 
-      <div className={styles.priceRow}>
+      <div className={styles.promoPrice}>
+        <del className={styles.originalPrice} aria-label={`Original price ${plan.originalPrice}`}>{plan.originalPrice}</del>
+        <div className={styles.priceRow}>
         <span className={styles.price}>{plan.price}</span>
         <span className={styles.unit}>{plan.unit}</span>
+        </div>
       </div>
 
       <ul className={styles.features}>

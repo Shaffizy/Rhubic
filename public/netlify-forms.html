@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="en">
+  <head><meta charset="utf-8"><title>Contact form</title></head>
+  <body>
+    <!-- Netlify detects this form at deployment; React posts matching fields. -->
+    <form name="sales-contact" method="POST" data-netlify="true" hidden>
+      <input type="hidden" name="form-name" value="sales-contact">
+      <input name="Name" type="text">
+      <input name="Email" type="email">
+      <textarea name="Message"></textarea>
+    </form>
+  </body>
+</html>
