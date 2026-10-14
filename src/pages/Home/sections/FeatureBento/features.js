@@ -31,8 +31,8 @@ export const tiles = {
 export const barValue = '+42%';
 
 export const notifications = [
-  { title: 'New Framer project', time: 'Today, 11:08AM' },
-  { title: 'New Figma file', time: 'Today, 11:02AM' },
+  { title: 'New Landing Page', time: 'Today, 11:08AM' },
+  { title: 'New Design Layout', time: 'Today, 11:02AM' },
 ];
 
 export const chat = {
