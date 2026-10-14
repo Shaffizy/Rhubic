@@ -15,11 +15,14 @@
   flex-direction: column;
   align-items: flex-end;
   gap: 12px;
+  /* Let taps reach content behind the closed panel's container. */
+  pointer-events: none;
 }
 
 /* --- notch --- */
 
 .button {
+  pointer-events: auto;
   display: grid;
   place-items: center;
   width: 56px;
